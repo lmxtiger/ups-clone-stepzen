@@ -5,6 +5,7 @@ import CustomersScreen from '../screens/CustomersScreen'
 import OrdersScreen from '../screens/OrdersScreen'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
+import { LIGHT_BLUE } from '../constants'
 
 export type TabStackParamList = {
   Customers: undefined,
@@ -24,24 +25,26 @@ const TabNavigator = () => {
 
   return (
     <Tab.Navigator screenOptions={({route}) => ({
-      tabBarActiveTintColor: "#59C1CC",
+      tabBarActiveTintColor: LIGHT_BLUE,
       tabBarInactiveTintColor: "gray",
       tabBarIcon: ({focused, color, size}) => {
         if (route.name === "Customers") {
           return (
-            <Icon
-              name='users'
-              type='entypo'
-              color={focused ? "#59C1CC" : "gray"}
-            />
+            <BottomTabBarIcon name='users' focused={focused} />
+            // <Icon
+            //   name='users'
+            //   type='entypo'
+            //   color={focused ? LIGHT_BLUE : "gray"}
+            // />
           )
         } else if (route.name === "Orders") {
           return (
-            <Icon
-              name='box'
-              type='entypo'
-              color={focused ? "#EB6A7C" : "gray"}
-            />
+            <BottomTabBarIcon name='box' focused={focused} />
+            // <Icon
+            //   name='box'
+            //   type='entypo'
+            //   color={focused ? LIGHT_BLUE : "gray"}
+            // />
           )
         }
       }
@@ -51,5 +54,13 @@ const TabNavigator = () => {
     </Tab.Navigator>
   )
 }
+
+const BottomTabBarIcon = ({name, focused}: {name: string, focused: boolean}) => (
+  <Icon
+    name={name}
+    type='entypo'
+    color={focused ? LIGHT_BLUE : "gray"}
+  />
+)
 
 export default TabNavigator
