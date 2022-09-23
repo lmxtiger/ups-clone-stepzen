@@ -36,6 +36,7 @@ export default function CustomersScreen() {
         containerStyle={tailwind("w-full h-64")}
         PlaceholderContent={<ActivityIndicator />}
       />
+      {/* Search bar above the Customers list */}
       <Input
         placeholder='Search by Customer'
         value={input}
@@ -43,9 +44,15 @@ export default function CustomersScreen() {
         containerStyle={tailwind("bg-white pt-5 pb-0 px-10")}
       />
       {/* <Text>error: {error?.networkError?.toString()}</Text> */}
-      {data?.getCustomers.map(({name: ID, value: {email, name}}: CustomerResponse) => (
-        <CustomerCard key={ID} email={email} name={name} userId={ID} />
-      ))}
+      {data?.getCustomers
+        ?.filter(({value: {name: customerName}}: CustomerResponse) =>
+          customerName.includes(input)
+        )
+        .map(
+          ({name: ID, value: {email, name}}: CustomerResponse) => (
+            <CustomerCard key={ID} email={email} name={name} userId={ID} />
+        ))
+      }
     </ScrollView>
   )
 }
