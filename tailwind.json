@@ -79,6 +79,16 @@
 			"marginTop": -8
 		}
 	},
+	"-mt-3": {
+		"style": {
+			"marginTop": -12
+		}
+	},
+	"mt-2": {
+		"style": {
+			"marginTop": 8
+		}
+	},
 	"block": {
 		"style": {
 			"display": "block"
@@ -112,6 +122,11 @@
 	"flex-row": {
 		"style": {
 			"flexDirection": "row"
+		}
+	},
+	"items-start": {
+		"style": {
+			"alignItems": "flex-start"
 		}
 	},
 	"items-center": {
