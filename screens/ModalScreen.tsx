@@ -26,6 +26,7 @@ const ModalScreen = () => {
 
   return (
     <View>
+      {/* top-right "close" button  */}
       <TouchableOpacity onPress={navigation.goBack} style={tw('absolute right-5 top-5 z-10')}>
         <Icon
           name='closecircle'
@@ -43,7 +44,7 @@ const ModalScreen = () => {
       <FlatList
         contentContainerStyle={{paddingBottom: 200}}
         data={orders}
-        keyExtractor={(item: Order, _) => item.trackingId}
+        keyExtractor={(item: Order) => item.trackingId}
         renderItem={({item: order}) => <DeliveryCard order={order} />}
       />
     </View>

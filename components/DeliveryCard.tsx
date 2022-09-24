@@ -2,22 +2,23 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Card, Divider, Icon } from '@rneui/themed'
 import { useTailwind } from 'tailwind-rn/dist'
-import { LIGHT_BLUE } from '../constants'
+import { CUSTOM_PINK, LIGHT_BLUE } from '../constants'
 import MapView, {Marker} from 'react-native-maps'
 
 type Props = {
   order: Order
+  fullWidth?: boolean
 }
 
-const DeliveryCard = ({order: {Lat: latitude, Lng: longitude, ...order}}: Props) => {
+const DeliveryCard = ({order: {Lat: latitude, Lng: longitude, ...order}, fullWidth}: Props) => {
   const tw = useTailwind()
 
   return (
     <Card
       containerStyle={[
-        tw("rounded-lg my-2"),
+        tw(`${fullWidth ? "rounded-none m-0" : "rounded-lg"} my-2`),
         {
-          backgroundColor: LIGHT_BLUE,
+          backgroundColor: fullWidth ? CUSTOM_PINK : LIGHT_BLUE,
           padding: 0,
           paddingTop: 16,
           shadowColor: "black",
@@ -27,7 +28,7 @@ const DeliveryCard = ({order: {Lat: latitude, Lng: longitude, ...order}}: Props)
         },
       ]}
     >
-      <View>
+      <View style={fullWidth && {height: '100%'}}>
         <Icon
           name='box'
           type='entypo'
@@ -63,8 +64,9 @@ const DeliveryCard = ({order: {Lat: latitude, Lng: longitude, ...order}}: Props)
       <Divider color='white' />
 
       <View style={tw('p-5')}>
-        {order.trackingItems.items.map(({name, quantity}, index) => (
-          <View style={tw('flex-row justify-between items-center')}>
+        {order.trackingItems.items.map(({name, quantity, item_id}) => (
+          // has to pass in a UNIQUE key id for each item of the list, otherwise expo go will complain
+          <View key={item_id} style={tw('flex-row justify-between items-center')}>
             <Text style={tw('text-sm italic text-white')}>{name}</Text>
             <Text style={tw('text-xl text-white')}>x {quantity}</Text>
           </View>
